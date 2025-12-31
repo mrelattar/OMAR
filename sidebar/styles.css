@@ -1,8 +1,8 @@
 :root{
   --sidebar-width: 320px;
-  --accent: #ff7f00; /* اللون البرتقالي */
+  --accent: #ff7f00;
   --transition: 300ms;
-  --hamburger-size: 56px; /* هدف للمس */
+  --hamburger-size: 56px;
 }
 
 *{box-sizing:border-box}
@@ -19,25 +19,25 @@ body{
 .hamburger{
   position:fixed;
   top:14px;
-  right:14px; /* ضع الزر على اليمين لواجهة RTL */
+  right:14px;
   left:auto;
-  z-index:1200; /* رفع فوق كل العناصر الأخرى */
+  z-index:1200;
   width:var(--hamburger-size);
   height:var(--hamburger-size);
   min-width:var(--hamburger-size);
   min-height:var(--hamburger-size);
   border:0;
-  background:rgba(255,127,0,0.12); /* زيادة التباين لسهولة الرؤية */
+  background:rgba(255,127,0,0.12);
   cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:8px;
   border-radius:10px;
-  box-shadow:0 4px 14px rgba(0,0,0,0.12); /* ظل أقوى ليظهر فوق المحتوى */
+  box-shadow:0 4px 14px rgba(0,0,0,0.12);
   transition:background var(--transition) ease, transform var(--transition) ease;
   -webkit-tap-highlight-color: transparent;
-  touch-action:manipulation; /* تحسين التفاعل على اللمس */
+  touch-action:manipulation;
 }
 .hamburger:active{ transform: scale(0.98); }
 .hamburger:focus{ outline:2px solid rgba(255,127,0,0.24); outline-offset:2px; }
@@ -53,31 +53,7 @@ body{
   transition: transform var(--transition) ease, opacity var(--transition) ease, width var(--transition) ease;
 }
 
-/* دعم بديل بالاعتماد على aria-expanded */
-.hamburger[aria-expanded="true"] .bar:nth-child(1){
-  transform: translateY(6px) rotate(45deg);
-}
-.hamburger[aria-expanded="true"] .bar:nth-child(2){
-  opacity:0;
-  transform: scaleX(0);
-}
-.hamburger[aria-expanded="true"] .bar:nth-child(3){
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-/* تحول الزر الى X عند الفتح (كلاسيكي) */
-.hamburger.open .bar:nth-child(1){
-  transform: translateY(6px) rotate(45deg);
-}
-.hamburger.open .bar:nth-child(2){
-  opacity:0;
-  transform: scaleX(0);
-}
-.hamburger.open .bar:nth-child(3){
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-/* overlay خلفي */
+/* overlay */
 .overlay{
   position:fixed;
   inset:0;
@@ -86,7 +62,7 @@ body{
   visibility:hidden;
   transition: opacity var(--transition) ease, visibility var(--transition) ease;
   z-index:1040;
-  pointer-events:none; /* لا يتداخل عندما يكون مختفياً */
+  pointer-events:none;
 }
 .overlay.show{
   opacity:1;
@@ -98,67 +74,43 @@ body{
 .sidebar{
   position:fixed;
   top:0;
-  right:0; /* لأن الصفحة RTL */
+  right:0;
   height:100vh;
   width:clamp(240px, 80vw, var(--sidebar-width));
   background:#ffffff;
   box-shadow: -6px 0 18px rgba(0,0,0,0.08);
-  transform: translateX(100%); /* مخفي خارج الشاشة */
+  transform: translateX(100%);
   transition: transform var(--transition) ease;
   z-index:1050;
   padding:20px;
   overflow:auto;
   -webkit-overflow-scrolling:touch;
 }
+.sidebar.open{ transform: translateX(0); }
 
-/* عندما يكون مفتوحاً */
-.sidebar.open{
-  transform: translateX(0);
-}
-
-/* محتوى الصفحة يتحرك على الشاشات الكبيرة */
+/* main shift on large screens */
 .main{
   padding:24px;
   transition: margin-right var(--transition) ease;
 }
 @media (min-width: 900px){
-  /* استخدم العرض الفعلي للسايدبار إذا كان متاحاً */
-  body.sidebar-open .main{
-    margin-right: var(--sidebar-width);
-  }
-  /* على الشاشات الكبيرة، لا نغطي المحتوى بالـ overlay */
+  body.sidebar-open .main{ margin-right: var(--sidebar-width); }
   .overlay{ display:none; }
 }
 
-/* إعدادات خاصة للموبايل: السايدبار يغطي كامل العرض */
+/* mobile behavior */
 @media (max-width: 899px){
-  .sidebar{
-    width:100%;
-    max-width:100%;
-    transform: translateX(100%);
-  }
-  .sidebar.open{
-    transform: translateX(0);
-  }
+  .sidebar{ width:100%; max-width:100%; }
 }
 
-/* روابط داخل السايدبار */
-.sidebar a{
-  color:#333;
-  text-decoration:none;
-  display:block;
-  padding:12px 0;
-}
+/* links */
+.sidebar a{ color:#333; text-decoration:none; display:block; padding:12px 0; }
 
-/* تحسين ظهور الخطوط على أحجام صغيرة */
+/* small devices */
 @media (max-width: 420px){
-  .hamburger{ top:10px; right:10px; }
+  .hamburger{ top:10px; right:10px; padding:12px; border-radius:12px; }
   .hamburger .bar{ width:24px; }
-  /* زيادة مساحة اللمس بدون تمديد العنصر المرئي */
-  .hamburger{ padding:12px; border-radius:12px; }
 }
 
-/* دعم لعرض عالي الدقة */
-@media (prefers-reduced-motion: reduce){
-  *{ transition:none !important; }
-}
+/* reduce motion */
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
