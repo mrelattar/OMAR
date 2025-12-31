@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>مثال الشريط الجانبي</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- زر الهامبرغر -->
+  <button id="hamburger" class="hamburger" aria-label="قائمة" aria-expanded="false">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <!-- الشريط الجانبي -->
+  <aside id="sidebar" class="sidebar" aria-hidden="true">
+    <nav>
+      <ul>
+        <li><a href="#">الرابط 1</a></li>
+        <li><a href="#">الرابط 2</a></li>
+        <li><a href="#">الرابط 3</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- المحتوى الرئيسي -->
+  <main id="main" class="main">
+    <h1>محتوى الصفحة</h1>
+    <p>مثال على محتوى الصفحة. اضغط على زر الهامبرغر لإظهار/إخفاء الشريط الجانبي.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

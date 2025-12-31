@@ -1,0 +1,92 @@
+:root{
+  --sidebar-width: 260px;
+  --accent: #ff7f00; /* اللون البرتقالي */
+  --transition: 300ms;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  direction:rtl;
+}
+
+/* زر الهامبرغر */
+.hamburger{
+  position:fixed;
+  top:16px;
+  left:16px; /* في RTL يمكن تغييره إلى right إذا رغبت */
+  z-index:1100;
+  width:48px;
+  height:48px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px;
+  border-radius:6px;
+}
+
+/* ثلاث خطوط */
+.hamburger .bar{
+  display:block;
+  width:28px;
+  height:3px;
+  background:var(--accent);
+  border-radius:2px;
+  margin:3px 0;
+  transition: transform var(--transition) ease, opacity var(--transition) ease;
+}
+
+/* تحول الزر الى X عند الفتح */
+.hamburger.open .bar:nth-child(1){
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger.open .bar:nth-child(2){
+  opacity:0;
+  transform: scaleX(0);
+}
+.hamburger.open .bar:nth-child(3){
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* الشريط الجانبي */
+.sidebar{
+  position:fixed;
+  top:0;
+  right:0; /* لأن الصفحة RTL */
+  height:100vh;
+  width:var(--sidebar-width);
+  background:#ffffff;
+  box-shadow: -6px 0 18px rgba(0,0,0,0.08);
+  transform: translateX(100%); /* مخفي خارج الشاشة */
+  transition: transform var(--transition) ease;
+  z-index:1050;
+  padding:20px;
+  overflow:auto;
+}
+
+/* عندما يكون مفتوحاً */
+.sidebar.open{
+  transform: translateX(0);
+}
+
+/* محتوى الصفحة يتحرك إذا أردت */
+.main{
+  padding:24px;
+  transition: margin-right var(--transition) ease;
+}
+body.sidebar-open .main{
+  margin-right: var(--sidebar-width);
+}
+
+/* روابط داخل السايدبار */
+.sidebar a{
+  color:#333;
+  text-decoration:none;
+  display:block;
+  padding:8px 0;
+}
